@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Program {
 
@@ -15,12 +17,21 @@ public class Program {
 		int contRequisitos=0;
 		
 		ArrayList<Requisitos> requisitos = new ArrayList<>();
+		Map<String, Integer> quantidadeRequisitos = new HashMap<>();
+		
+		quantidadeRequisitos.put("FUNCIONAL", Integer.valueOf(0));
+		quantidadeRequisitos.put("NFUNCIONAL",Integer.valueOf(0));
+		quantidadeRequisitos.put("DOMINIO", Integer.valueOf(0));
+		quantidadeRequisitos.put("DADOS", Integer.valueOf(0));
 
 		while (contRequisitos != 5) {
 			
 			Requisitos requisito = new Requisitos();
 			System.out.println("Tipo de requisito: Funcional, NFuncional, Dominio ou Dados?");
-			tipoRequisito = teclado.nextLine();		
+			tipoRequisito = teclado.nextLine();
+			if(quantidadeRequisitos.containsKey(tipoRequisito.toUpperCase())) {
+				quantidadeRequisitos.put(tipoRequisito.toUpperCase(), Integer.valueOf(quantidadeRequisitos.get(tipoRequisito).intValue() + 1));
+			}
 			requisito.setTipoRequisito(tipoRequisito);
 			System.out.println("Descreva o requisito: ");
 			descRequisito = teclado.nextLine();
@@ -32,6 +43,11 @@ public class Program {
 		}
 		
 		System.out.println("Elicitação de requisitos finalizada!");
+		
+		for(String quantidade : quantidadeRequisitos.keySet()) {
+			System.out.println(quantidadeRequisitos.get(quantidade) + " Requisitos do tipo " + quantidade);
+		}
+		
 		System.out.println("Iniciada fase de projetos!");
 		System.out.println("Responsáveis: Engenheiro de Software e Gestor de Projeto.");
 		System.out.println("Realizando documentação!");
@@ -61,7 +77,7 @@ public class Program {
 		
 		for(Requisitos requisito: requisitos){
 		
-			System.out.println("Realizando teste: "+teste);
+			System.out.println("Realizando teste: " + teste);
 			
 			if(teste == 2 || teste == 5) {
 				System.out.println("Teste falhou! Código deve ser refatorado");
@@ -69,7 +85,7 @@ public class Program {
 				System.out.println("Teste passou!");
 			}
 			
-			classes++;
+			teste++;
 			Thread.sleep(1000);
 		}
 		
